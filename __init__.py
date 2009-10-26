@@ -25,6 +25,7 @@ from mercurial import extensions
 from mercurial.hgweb import hgweb_mod
 from mercurial.hgweb import hgwebdir_mod
 from mercurial.i18n import _
+from dulwich.repo import Repo
 
 hg_bananajour_curr_repo = None
 hg_bananajour_reponame = None
@@ -119,10 +120,25 @@ def bjrepo():
         if os.path.isdir(bjrepo):
           return bjrepo
 
-def bjadd():
-    None
+def bjadd(ui, repo):
     # we need to do whatever it is bananjour add does. i suspect
     # it's just a git init. if so, do the same, and print a message
+    if hg_bananajour_curr_repo:
+        bj_repo_dir = os.path.expanduser('~/.bananajour/repositories/')
+        repo_dir = bj_repo_dir + hg_bananajour_reponame + '.git'
+        if os.path.isdir(repo_dir):
+            print "This repository already exists!"
+            print "If you want to push to this repository, try hg push bananajour"
+            print "Otherwise, delete it before re-creating"
+            exit()
+        else:
+            os.makedirs(repo_dir)
+            Repo.init_bare(repo_dir)
+            print "Repository added to bananajour"
+            print "Run hg push bananajour to add your commits, and to update!"
+    else:
+        print "You need to run this command from within a repository"
+        exit()
 
 extensions.wrapfunction(ui.ui, 'config', config)
 extensions.wrapfunction(ui.ui, 'configitems', configitems)
@@ -136,5 +152,5 @@ def reposetup(ui, repo):
 
 cmdtable = {
   "bananajour-add":
-        (bjadd, [], _('hg banajour-add')),
+        (bjadd, [], _('hg bananajour-add')),
 }
