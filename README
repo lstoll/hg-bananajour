@@ -1,0 +1,31 @@
+# Work with bananajour using Mercurial
+
+## INSTALLATION
+
+This module depends on the hg-git extension. It currently requires fixes that
+are yet to be pushed to the master repo - clone
+http://bitbucket.org/lstoll/hg-git/ for now, and add hggit = <clone>/hggit to
+your .hgrc extensions. Then clone this repo, and add hg-bananajour=<clone>
+
+
+## USAGE
+
+You can discover bananajour repositories by running "hg paths".
+
+ $ hg paths
+ bjr-repo1 = git://linc.local/repo1.git
+ 
+This can then be cloned
+
+ $ hg clone bjr-repo1
+ 
+To create a repository on your machine run
+
+ $ hg bananajour-add
+ 
+From your repository directory. You will need to be running bananajour
+for this to actually be shared across the network.
+
+Once the repository is added you will need to run "hg push bananajour" to
+push an initial copy to the repo. When you want to make subsequent changes
+publically available, run the command again.

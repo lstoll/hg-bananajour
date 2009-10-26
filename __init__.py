@@ -8,7 +8,7 @@
 
 '''discover and advertise repositorys in git format with bananajour
 
-You can discover banajour repositories by running "hg paths".
+You can discover bananajour repositories by running "hg paths".
 
  $ hg paths
  bjr-repo1 = git://linc.local/repo1.git
@@ -16,6 +16,17 @@ You can discover banajour repositories by running "hg paths".
 This can then be cloned
 
  $ hg clone bjr-repo1
+ 
+To create a repository on your machine run
+
+ $ hg bananajour-add
+ 
+From your repository directory. You will need to be running bananajour
+for this to actually be shared across the network.
+
+Once the repository is added you will need to run "hg push bananajour" to
+push an initial copy to the repo. When you want to make subsequent changes
+publically available, run the command again.
 
 '''
 
