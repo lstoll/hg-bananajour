@@ -127,17 +127,17 @@ def bjadd(ui, repo):
         bj_repo_dir = os.path.expanduser('~/.bananajour/repositories/')
         repo_dir = bj_repo_dir + hg_bananajour_reponame + '.git'
         if os.path.isdir(repo_dir):
-            print "This repository already exists!"
-            print "If you want to push to this repository, try hg push bananajour"
-            print "Otherwise, delete it before re-creating"
+            ui.write ("This repository already exists!")
+            ui.write ("If you want to push to this repository, try hg push bananajour")
+            ui.write ("Otherwise, delete it before re-creating")
             exit()
         else:
             os.makedirs(repo_dir)
             Repo.init_bare(repo_dir)
-            print "Repository added to bananajour"
-            print "Run hg push bananajour to add your commits, and to update!"
+            ui.write ("Repository added to bananajour")
+            ui.write ("Run hg push bananajour to add your commits, and to update!")
     else:
-        print "You need to run this command from within a repository"
+        ui.write("You need to run this command from within a repository")
         exit()
 
 extensions.wrapfunction(ui.ui, 'config', config)
